@@ -8,7 +8,7 @@ RUN apt-get install -y libsystemd0 valgrind nuttcp openssh-server bash
 RUN apt-get install -y libtalloc2 liblz4-1 freeradius libradcli4
 RUN apt-get install -y libkrb5-3 less
 RUN sed 's/PermitRootLogin without-password/PermitRootLogin yes/g' -i /etc/ssh/sshd_config
-RUN sed 's|/var/log/freeradius|/var/log/radius|g' -i /etc/freeradius/radiusd.conf
+
 
 RUN echo 'root:root' |chpasswd
 RUN useradd -m -d /home/admin -s /bin/bash admin
@@ -18,10 +18,7 @@ RUN mkdir /etc/ocserv
 RUN mv /var/log/freeradius /var/log/radius
 
 
-ADD ca.pem /etc/ocserv/
-ADD key.pem /etc/ocserv/
-ADD cert.pem /etc/ocserv/
-ADD cert.pem /etc/ocserv/
+
 ADD ocserv-radius.conf /etc/ocserv/ocserv.conf
 ADD radiusclient-debian.conf /etc/radiusclient/radiusclient.conf
 ADD radius-clients.conf /etc/freeradius/clients.conf
